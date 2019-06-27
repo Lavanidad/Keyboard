@@ -7,6 +7,7 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Build;
 import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +35,7 @@ public class MyKeyboard {
     private int keyboardResId;
     private EditText mEditText;
     private boolean canClick = true;
+    private boolean isFinish = false;
 
     public MyKeyboard(Context mContext, LinearLayout layout, EditText mEditText, int id, int keyId) {
         this.mContext = mContext;
@@ -59,13 +61,12 @@ public class MyKeyboard {
     }
 
     /**
-     *
-     * @param mContext      使用键盘的上下文对象
-     * @param layout        键盘摆放的位置（使用时候的布局ID）
-     * @param mEditText     键盘作用的输入框
-     * @param id            容器ID（键盘的背景）
-     * @param keyId         控件ID
-     * @param canClick      特殊按钮是否能点击
+     * @param mContext  使用键盘的上下文对象
+     * @param layout    键盘摆放的位置（使用时候的布局ID）
+     * @param mEditText 键盘作用的输入框
+     * @param id        容器ID（键盘的背景）
+     * @param keyId     控件ID
+     * @param canClick  特殊按钮是否能点击
      */
     public MyKeyboard(Context mContext, LinearLayout layout, EditText mEditText, int id, int keyId,
                       boolean canClick) {
@@ -119,35 +120,43 @@ public class MyKeyboard {
                 Editable editable = mEditText.getText();
                 int start = mEditText.getSelectionStart();
                 int end = mEditText.getSelectionEnd();
-                if (editable.length() <= 7) {
-                    if (primaryCode == Keyboard.KEYCODE_DELETE) {
-                        if (editable != null && editable.length() > 0) {// 回退键,删除字符
-                            if (start == end) { //光标开始和结束位置相同, 即没有选中内容
-                                editable.delete(start - 1, start);
-                            } else { //光标开始和结束位置不同, 即选中EditText中的内容
-                                editable.delete(start, end);
-                            }
+                if (primaryCode == Keyboard.KEYCODE_DELETE) {
+                    if (editable.length() > 0) {// 回退键,删除字符
+                        if (start == end) { //光标开始和结束位置相同, 即没有选中内容
+                            editable.delete(start - 1, start);
+                            isFinish = false;
+                        } else { //光标开始和结束位置不同, 即选中EditText中的内容
+                            editable.delete(start, end);
+                            isFinish = false;
                         }
-                    } else if (primaryCode == -200 && canClick) {
-                        if (editable != null && start == 0) {
+                    }
+                } else if (primaryCode == -1000) {//清零
+                    if (editable.length() > 0) {
+                        editable.clear();
+                        isFinish = false;
+                    }
+                }
+                if (editable.length() < 7) {
+                    if (primaryCode == -200 && canClick) {
+                        if (start == 0) {
                             editable.insert(0, "200.00");
+                            isFinish = true;
                         }
                     } else if (primaryCode == -500 && canClick) {
-                        if (editable != null && start == 0) {
+                        if (start == 0) {
                             editable.insert(0, "500.00");
+                            isFinish = true;
                         }
                     } else if (primaryCode == -800 && canClick) {
-                        if (editable != null && start == 0) {
+                        if (start == 0) {
                             editable.insert(0, "800.00");
+                            isFinish = true;
                         }
-                    } else if (primaryCode == -1000) {//清零
-                        if (editable != null && editable.length() > 0) {
-                            editable.clear();
-                        }
-                    } else {
+                    } else if (!isFinish) {
                         // 输入键盘值
-                        // editable.insert(start, Character.toString((char) primaryCode));
+                        //editable.insert(start, Character.toString((char) primaryCode));
                         editable.replace(start, end, Character.toString((char) primaryCode));
+                        Log.d("test", "l:" + editable.length() + "text:" + mEditText.getText());
                     }
                 }
             } catch (Exception e) {

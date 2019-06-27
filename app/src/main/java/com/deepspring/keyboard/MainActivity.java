@@ -1,7 +1,6 @@
 package com.deepspring.keyboard;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,14 +43,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initListener() {
-        if (et_1.hasFocusable()) {
-            ll_1.setVisibility(View.VISIBLE);
-            ll_2.setVisibility(View.GONE);
-        }
-        if (et_2.hasFocusable()){
-            ll_1.setVisibility(View.GONE);
-            ll_2.setVisibility(View.VISIBLE);
-        }
+        et_1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                ll_1.setVisibility(View.VISIBLE);
+                ll_2.setVisibility(View.GONE);
+            }
+        });
+        et_2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                ll_1.setVisibility(View.GONE);
+                ll_2.setVisibility(View.VISIBLE);
+            }
+        });
     }
-
 }

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/t1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="1dp"
-        android:gravity="bottom"
         android:orientation="horizontal">
 
         <TextView
@@ -36,7 +35,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="1dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@id/t1">
 
         <TextView
             android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
             android:id="@+id/et_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=""
+            android:hint="不支持特殊按键"
             android:textSize="26sp"
             android:inputType="numberDecimal"
             app:decimalEndNumber="2"
@@ -58,14 +58,16 @@
     <LinearLayout
         android:id="@+id/ll_1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_alignParentBottom="true"
         android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/ll_2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_alignParentBottom="true"
         android:visibility="gone" />
-</LinearLayout>
+</RelativeLayout>
