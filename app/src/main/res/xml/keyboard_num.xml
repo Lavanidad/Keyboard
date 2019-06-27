@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:horizontalGap="10dp"
+    android:keyHeight="90dp"
+    android:keyWidth="30%p"
+    android:verticalGap="6dp">
+
+
+    <Row>
+        <Key
+            android:codes="-200"
+            android:keyLabel="200元"/>
+        <Key
+            android:codes="49"
+            android:keyLabel="1" />
+        <Key
+            android:codes="50"
+            android:keyLabel="2" />
+        <Key
+            android:codes="51"
+            android:keyLabel="3" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="-500"
+            android:keyLabel="500元"/>
+        <Key
+            android:codes="52"
+            android:keyLabel="4" />
+        <Key
+            android:codes="53"
+            android:keyLabel="5" />
+        <Key
+            android:codes="54"
+            android:keyLabel="6" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="-800"
+            android:keyLabel="800元"/>
+        <Key
+            android:codes="55"
+            android:keyLabel="7" />
+        <Key
+            android:codes="56"
+            android:keyLabel="8" />
+        <Key
+            android:codes="57"
+            android:keyLabel="9" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="-1000"
+            android:keyLabel="清零"/>
+        <Key
+            android:codes="46"
+            android:keyLabel="."
+            android:isRepeatable="false"/>
+        <Key
+            android:codes="48"
+            android:keyLabel="0" />
+        <Key
+            android:codes="-5"
+            android:isRepeatable="true" />
+    </Row>
+</Keyboard>
